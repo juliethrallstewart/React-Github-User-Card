@@ -8,25 +8,24 @@ class App extends React.Component {
 		super();
 		this.state = {
 			user         : {},
+			followers    : [],
 			errorMessage : ''
 		};
 	}
 
 	componentDidMount () {
 		this.fetchUser();
+		this.fetchFollowers();
 	}
 
-	// handleDoggoChange = e => {
-	//   this.setState({ dogBreed: e.target.value });
-	// };
-
-	// handleSubmit = e => {
-	//   e.preventDefault()
-	//   this.fetchDoggos()
-	// }
+	componentDidUpdate (prevProps, prevState) {
+		if (prevState.followers !== this.state.followers) {
+			console.log('followers changed on state');
+		}
+	}
 
 	fetchUser = () => {
-		fetch(`https://api.github.com/users/juliethrallstewar`)
+		fetch(`https://api.github.com/users/juliethrallstewart`)
 			.then((response) => {
 				// first promise resolution is used to format the data.
 				return response.json();
@@ -42,12 +41,28 @@ class App extends React.Component {
 			});
 	};
 
+	fetchFollowers = () => {
+		fetch('https://api.github.com/users/juliethrallstewart/followers')
+			.then((response) => {
+				return response.json();
+			})
+			.then((response) => {
+				this.setState({
+					followers : response
+				});
+			})
+			.catch((err) => {
+				console.log('followers error', err);
+			});
+	};
+
 	render () {
 		console.log('user state', this.state.user);
+		console.log('rendered followers', this.state.followers);
 		return (
 			<div>
 				<h1>User Card</h1>
-				<User user={this.state.user} error={this.state.errorMessage} />
+				<User user={this.state.user} followers={this.state.followers} error={this.state.errorMessage} />
 			</div>
 		);
 	}

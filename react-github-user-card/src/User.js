@@ -1,6 +1,7 @@
 import React from 'react'
+import Followers from './Followers.js';
 
-const User = ({user, error}) => {
+const User = ({user, followers, error}) => {
     return (
         <>
         {user.message !==
@@ -9,6 +10,8 @@ const User = ({user, error}) => {
             <p>{user.name}</p>
             <img src={user.avatar_url} alt={user.name} style={{height: '200px', width: '200px'}} />
             <p>{user.html_url}</p>
+            <p>Followers:</p>
+            {followers.map((follower) => <Followers key={follower.id} follower={follower} />)}
             </div>
         ) : (
           <div>no user found</div>
