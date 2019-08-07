@@ -6,7 +6,7 @@ class App extends React.Component {
 	constructor () {
 		super();
 		this.state = {
-			user         : {},
+			user         : 'juliethrallstewart',
 			followers    : [],
 			errorMessage : ''
 		};
@@ -23,8 +23,18 @@ class App extends React.Component {
 		}
 	}
 
+	handleUserChange = (e) => {
+		this.setState({ user: e.target.value });
+	};
+
+	handleSubmit = (e) => {
+		e.preventDefault();
+		this.fetchUser();
+		this.fetchFollowers();
+	};
+
 	fetchUser = () => {
-		fetch(`https://api.github.com/users/juliethrallstewart`)
+		fetch(`https://api.github.com/users/${this.state.user}`)
 			.then((response) => {
 				// first promise resolution is used to format the data.
 				return response.json();
@@ -41,7 +51,7 @@ class App extends React.Component {
 	};
 
 	fetchFollowers = () => {
-		fetch('https://api.github.com/users/juliethrallstewart/followers')
+		fetch(`https://api.github.com/users/${this.state.user}/followers`)
 			.then((response) => {
 				return response.json();
 			})
@@ -61,6 +71,10 @@ class App extends React.Component {
 		return (
 			<div className="App">
 				<h1>User Card</h1>
+				<form onSubmit={this.handleSubmit}>
+					<input type="text" onChange={this.handleUserChange} />
+					<button style={{ marginLeft: '10px' }}>Search</button>
+				</form>
 				<User user={this.state.user} followers={this.state.followers} error={this.state.errorMessage} />
 			</div>
 		);

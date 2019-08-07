@@ -6,6 +6,12 @@ const Followers = ({follower}) => {
         <ul>
          <li>{follower.login}</li>
          </ul>
+         {/* <ul>
+         {Object.entries(follower).map(([field, value], idx) => (
+             <li key={idx}>
+             <strong>{field}:</strong>{value}</li>
+         ))}
+         </ul> */}
         </>
     )
 }

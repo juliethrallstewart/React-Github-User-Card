@@ -22,3 +22,11 @@ ul {
 	margin: 0 auto;
 	text-align: left;
 }
+
+input {
+	border: 1px solid black;
+}
+
+button {
+	border: 1px solid black;
+}
