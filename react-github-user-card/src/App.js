@@ -1,6 +1,5 @@
 import React from 'react';
 import User from './User.js';
-
 import './App.css';
 
 class App extends React.Component {
@@ -60,7 +59,7 @@ class App extends React.Component {
 		console.log('user state', this.state.user);
 		console.log('rendered followers', this.state.followers);
 		return (
-			<div>
+			<div className="App">
 				<h1>User Card</h1>
 				<User user={this.state.user} followers={this.state.followers} error={this.state.errorMessage} />
 			</div>
